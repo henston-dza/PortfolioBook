@@ -6,6 +6,7 @@ import {schemaTypes} from './schemaTypes'
 export default defineConfig({
   name: 'default',
   title: 'itomui',
+  basePath: '/studio',
 
   projectId: 'i28xmnhm',
   dataset: 'production',
