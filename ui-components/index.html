@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Henston's Portfolio Book</title>
+  <!-- Use relative paths so it works fine with Vite base config -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./src/js/core/main.js"></script>
+
+
+  <link rel="stylesheet" href="./src/css/global/style.css" />
+  <link rel="stylesheet" href="./src/css/pages/portfolio.css" />
+</head>
+
+<body>
+
+  <!-- Pencil Sketching Preloader -->
+  <div id="preloader" class="preloader-scene">
+    <div class="loader-content">
+      <div class="pencil-sketch-icon" data-lucide="pencil"></div>
+      <h2 class="loader-title">Sketching Henston's Story...</h2>
+      <div class="loader-bar-container">
+        <div class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="book-scene" style="opacity: 0;">
+
+    <div class="book">
+
+      <!-- Book Cover -->
+      <div class="cover">
+        <div class="cover-content">
+          <h1 class="cover-title">Henston's Portfolio</h1>
+          <p class="cover-subtitle">The Work journey of a Developer</p>
+          <button class="cover-cta" id="btnStartStory">Start Reading</button>
+        </div>
+      </div>
+
+      <!-- Left Bookmarks (Navbar Left) -->
+      <div class="bookmarks-container left-side" id="portfolioLeftBookmarks">
+        <button class="bookmark active" data-page="home" id="nav-home">Home</button>
+      </div>
+
+      <!-- Right Bookmarks (Navbar Right) -->
+      <div class="bookmarks-container right-side" id="portfolioRightBookmarks">
+        <button class="bookmark" data-page="home" id="nav-about">About</button>
+        <button class="bookmark" data-page="skills" id="nav-skills">Skills</button>
+        <button class="bookmark" data-page="experience" id="nav-experience">Experience</button>
+        <button class="bookmark" data-page="projects" id="nav-projects">Projects</button>
+        <button class="bookmark" data-page="contact" id="nav-contact">Contact</button>
+      </div>
+
+      <!-- Left Base Page -->
+      <div class="page base-left-page">
+        <div class="notebook-margin-line"></div>
+        <div class="page-content" id="leftPageContainer">
+          <!-- Content injected here -->
+        </div>
+      </div>
+
+      <!-- Right Base Page -->
+      <div class="page base-right-page">
+        <div class="notebook-margin-line"></div>
+        <div class="page-content" id="rightPageContainer">
+          <!-- Content injected here -->
+        </div>
+      </div>
+
+      <!-- Flipping Page (Dynamically used for transitions) -->
+      <div class="page flip-page" style="display: none;">
+        <!-- Front Face -->
+        <div class="page-face front">
+          <div class="notebook-margin-line"></div>
+          <div class="page-content" id="flipFrontContainer">
+          </div>
+        </div>
+
+        <!-- Back Face -->
+        <div class="page-face back">
+          <div class="notebook-margin-line"></div>
+          <div class="page-content" id="flipBackContainer">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Sequential Scroll Layout (visible only on <= 900px screens) -->
+  <div id="mobileContainer" class="mobile-scroll-layout" style="display: none;">
+    <div class="mobile-nav-bar" id="mobileNavBar">
+      <div class="mobile-nav-header">
+        <span class="mobile-logo">Henston's Portfolio</span>
+        <button class="hamburger-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line class="line-top" x1="4" y1="6" x2="20" y2="6"></line>
+            <line class="line-mid" x1="4" y1="12" x2="20" y2="12"></line>
+            <line class="line-bot" x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-nav-dropdown" id="mobileNavDropdown">
+        <button class="mobile-nav-link active" data-page="home">Home</button>
+        <button class="mobile-nav-link" data-page="home">About</button>
+        <button class="mobile-nav-link" data-page="skills">Skills</button>
+        <button class="mobile-nav-link" data-page="experience">Experience</button>
+        <button class="mobile-nav-link" data-page="projects">Projects</button>
+        <button class="mobile-nav-link" data-page="contact">Contact</button>
+      </div>
+    </div>
+    <div class="mobile-sheets-list" id="mobileSheetsList"></div>
+  </div>
+
+  <!-- PORTFOLIO TEMPLATES -->
+
+  <!-- PAGE 1 & 2: INDEX/HOME SPREAD -->
+  <template id="home-left-template">
+    <div class="home-left-content">
+      <div class="profile-section">
+        <div class="polaroid-frame">
+          <div class="profile-image-container"
+            style="display: flex; justify-content: center; align-items: center; background: #e1ebef;">
+            <img src="/src/assets/images/roy.jpg" alt="Henston" class="profile-image" />
+          </div>
+          <div class="polaroid-caption">Henston</div>
+        </div>
+        <div class="intro-badge">
+          <h2 class="dev-role-title"><span class="role-typewriter-text">Creative Full Stack AI Engineer</span><span
+              class="role-cursor">|</span></h2>
+          <p class="dev-role-subtitle">I engineer and develop modern digital products by blending interactive frontend
+            experiences
+            with
+            reliable backend systems, turning ambitious ideas into scalable web applications.</p>
+        </div>
+      </div>
+
+      <div class="characteristics-container squiggle-container">
+        <h3 class="char-title">Core Philosophies</h3>
+        <ul class="char-list">
+          <li>
+            <span class="philosophy-icon" data-lucide="layers"></span>
+            <strong>Full-Stack Architecture:</strong> Bridging secure backend systems with fluid interactive user
+            interfaces.
+          </li>
+          <li>
+            <span class="philosophy-icon" data-lucide="cpu"></span>
+            <strong>Clean &amp; Scalable APIs:</strong> Designing robust API systems and database structures with
+            performance in mind.
+          </li>
+          <li>
+            <span class="philosophy-icon" data-lucide="sparkles"></span>
+            <strong>Motion &amp; Experience:</strong> Engaging users with premium micro-interactions without
+            compromising speed.
+          </li>
+        </ul>
+      </div>
+
+      <div class="home-actions">
+        <a href="/src/assets/certificates/resume.pdf" class="resume-download-btn">
+          <svg class="download-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          Download Resume
+        </a>
+        <div class="home-socials">
+          <a href="https://github.com/henston-dza" target="_blank" rel="noopener" class="social-icon-btn github-btn"
+            title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/henston-melroy-dsouza/" target="_blank" rel="noopener"
+            class="social-icon-btn linkedin-btn" title="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+          <a href="mailto:henstondsouza388@gmail.com" class="social-icon-btn email-btn" title="Email Me">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </template>
+
+
+  <!-- PAGE 3 & 4: ABOUT & SKILLS SPREAD -->
+  <template id="home-right-template">
+    <div class="about-left-content">
+      <h2 class="section-title">ABOUT ME</h2>
+      <div class="about-narrative-container">
+        <p class="reveal-text">
+          I am a <strong>creative developer</strong> and <strong>interaction designer</strong> dedicated to bridging the
+          gap between cutting-edge technology and gorgeous visual design. My workflow is built around the principles of
+          <em>responsiveness</em>, <em>interactivity</em>, and <em>authentic user experiences</em>.
+        </p>
+        <p class="reveal-text">
+          Over the past few years, I have honed my capabilities in creating custom web motion, high-fidelity UI
+          components, and micro-interactions. I focus on structural clean code, responsive layouts, and maintaining
+          cross-browser reliability.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3 class="workflow-title"><span class="workflow-icon" data-lucide="wrench"></span> Workflow &amp; Approach</h3>
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <div class="step-desc"><strong>Sketch &amp; Prototype:</strong> Brainstorm layouts and test key physics.
+            </div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">2</div>
+            <div class="step-desc"><strong>Interaction Craft:</strong> Write performant animations using GSAP/Vanilla
+              CSS.</div>
+          </div>
+          <div class="workflow-step">
+            <div class="step-num">3</div>
+            <div class="step-desc"><strong>Deliver &amp; Iterate:</strong> Refine details, check performance, build
+              clean builds.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="skills-left-template">
+    <div class="skills-left-content">
+      <h2 class="section-title">SKILLS &amp; TECH</h2>
+      <div class="skills-board">
+        <div class="skills-sticky note-pink">
+          <div class="sticky-clip" aria-label="paperclip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M10.5 13.5 18 6a3.5 3.5 0 1 1 5 5l-9.5 9.5a6 6 0 1 1-8.5-8.5l8.5-8.5" />
+            </svg>
+          </div>
+          <h3 class="sticky-title">Front-End</h3>
+          <ul class="sticky-list">
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 22 8.5 19 21 12 23 5 21 2 8.5 12 2" />
+                <polyline points="9 10 7 12 9 14" />
+                <polyline points="15 10 17 12 15 14" />
+                <line x1="13" y1="9" x2="11" y2="15" />
+              </svg>
+              <span>HTML5 / CSS3</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <path d="M7 16a2 2 0 0 0 4 0v-5m3 5h2a2 2 0 0 0 0-4h-2a2 2 0 0 1 0-4h2" />
+              </svg>
+              <span>JavaScript (ES6+)</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9c0 4.5-3.5 8-8 8a8 8 0 0 1-8-8z" />
+                <polygon points="10 9 15 12 10 15 10 9" />
+              </svg>
+              <span>GSAP / CSS Motion</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="12" rx="11" ry="4.5" />
+                <ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(60 12 12)" />
+                <ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(120 12 12)" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+              <span>React / Next.js</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a6 6 0 0 0-9 9h9c0-3 3-6 9-6z" />
+                <path d="M12 21a6 6 0 0 0 9-9h-9c0 3-3 6-9 6z" />
+              </svg>
+              <span>TailwindCSS</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 22 22 7 12 2" />
+                <polygon points="11 7 8 13 13 13 11 18 16 11 11 11 11 7" />
+              </svg>
+              <span>Vite / Bundlers</span>
+            </li>
+          </ul>
+        </div>
+        <div class="skills-sticky note-blue">
+          <div class="sticky-clip" aria-label="paperclip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M10.5 13.5 18 6a3.5 3.5 0 1 1 5 5l-9.5 9.5a6 6 0 1 1-8.5-8.5l8.5-8.5" />
+            </svg>
+          </div>
+          <h3 class="sticky-title">Back-End</h3>
+          <ul class="sticky-list">
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" />
+                <path d="M12 22V12" />
+                <path d="M12 12L22 7" />
+                <path d="M12 12L2 7" />
+              </svg>
+              <span>Node.js / Express</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="18" r="3" />
+                <circle cx="6" cy="6" r="3" />
+                <circle cx="18" cy="6" r="3" />
+                <path d="M6 9v9a3 3 0 0 0 3 3h6" />
+                <path d="M18 9v6" />
+              </svg>
+              <span>RESTful APIs</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5" />
+                <circle cx="12" cy="2" r="1.5" />
+                <circle cx="22" cy="8.5" r="1.5" />
+                <circle cx="22" cy="15.5" r="1.5" />
+                <circle cx="12" cy="22" r="1.5" />
+                <circle cx="2" cy="15.5" r="1.5" />
+                <circle cx="2" cy="8.5" r="1.5" />
+                <path d="M12 2l10 13.5M2 8.5h20M22 8.5L12 22M2 15.5L12 2M12 22L2 8.5" />
+              </svg>
+              <span>GraphQL / WebSockets</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c3 0 4 1 4 3v3H8V6c0-2 2-4 4-4z" />
+                <path d="M12 22c-3 0-4-1-4-3v-3h8v2c0 2-2 4-4 4z" />
+                <path d="M16 11h4a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2" />
+                <path d="M8 13H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2" />
+              </svg>
+              <span>Python / FastAPI</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M17.5 19A3.5 3.5 0 0 0 21 15.5c0-2.79-2.54-4.5-5-4.5-.7 0-1.39.09-2 .26C13 8.35 10.84 7 8.5 7 5.46 7 3 9.46 3 12.5A3.5 3.5 0 0 0 6.5 16H8" />
+                <path d="M13 14l-2 4h4l-2 4" />
+              </svg>
+              <span>Serverless Functions</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="skills-right-template">
+    <div class="skills-right-content">
+      <h2 class="section-title">TOOLS &amp; INFRA</h2>
+      <div class="skills-board">
+        <div class="skills-sticky note-yellow">
+          <div class="sticky-clip" aria-label="paperclip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M10.5 13.5 18 6a3.5 3.5 0 1 1 5 5l-9.5 9.5a6 6 0 1 1-8.5-8.5l8.5-8.5" />
+            </svg>
+          </div>
+          <h3 class="sticky-title">Cloud &amp; Database</h3>
+          <ul class="sticky-list">
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c0 0 8 5 8 11s-5 9-8 9-8-3-8-9 8-11 8-11z" />
+                <path d="M12 2v20" />
+              </svg>
+              <span>MongoDB / NoSQL</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+              </svg>
+              <span>PostgreSQL / SQL</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="5" rx="1" />
+                <rect x="3" y="11" width="18" height="5" rx="1" />
+                <rect x="3" y="19" width="18" height="3" rx="1" />
+              </svg>
+              <span>Redis Caching</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 22 22 2 22" />
+                <line x1="12" y1="2" x2="12" y2="22" />
+                <line x1="12" y1="12" x2="22" y2="22" />
+                <line x1="12" y1="12" x2="2" y2="22" />
+              </svg>
+              <span>Prisma / Mongoose</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+              <span>AWS Deploy</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                <path d="M12 12v9" />
+                <path d="m8 16 4-4 4 4" />
+              </svg>
+              <span>Cloudinary</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+              </svg>
+              <span>Firebase</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                <line x1="6" y1="6" x2="6.01" y2="6" />
+                <line x1="6" y1="18" x2="6.01" y2="18" />
+              </svg>
+              <span>Hostinger / Vercel Hosting</span>
+            </li>
+          </ul>
+        </div>
+        <div class="skills-sticky note-green">
+          <div class="sticky-clip" aria-label="paperclip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M10.5 13.5 18 6a3.5 3.5 0 1 1 5 5l-9.5 9.5a6 6 0 1 1-8.5-8.5l8.5-8.5" />
+            </svg>
+          </div>
+          <h3 class="sticky-title">Tools</h3>
+          <ul class="sticky-list">
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="18" r="3" />
+                <circle cx="6" cy="6" r="3" />
+                <circle cx="6" cy="18" r="3" />
+                <path d="M18 15V9a4 4 0 0 0-4-4H9" />
+                <line x1="6" y1="9" x2="6" y2="15" />
+              </svg>
+              <span>Git / CI/CD Workflows</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="6" height="5" rx="1" />
+                <rect x="9" y="3" width="6" height="5" rx="1" />
+                <rect x="16" y="3" width="6" height="5" rx="1" />
+                <rect x="2" y="10" width="6" height="5" rx="1" />
+                <rect x="9" y="10" width="6" height="5" rx="1" />
+                <rect x="16" y="10" width="6" height="5" rx="1" />
+                <path d="M2 18h20" />
+              </svg>
+              <span>Docker / Containers</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z" />
+                <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z" />
+                <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z" />
+                <path d="M12 9h3.5a3.5 3.5 0 1 1 0 7H12V9z" />
+                <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z" />
+              </svg>
+              <span>Figma (UI/UX to Code)</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.86-1.75.2-2.5a2.5 2.5 0 0 0-3.2-0.5z" />
+                <path d="M12 12c-2.3 2.3-3.4 5.3-3.4 5.3s3 1.1 5.3-1.2C16.2 13.8 21 8.2 21 8.2S15.8 3 12 12z" />
+                <path d="M16 8l-4 4" />
+                <path d="M17.5 15a4.75 4.75 0 0 0-4-4" />
+              </svg>
+              <span>Antigravity Ide</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c0 0 .5 8.5 8.5 8.5C12.5 10.5 12 19 12 19c0 0-.5-8.5-8.5-8.5C11.5 10.5 12 2 12 2z" />
+                <path d="M19 17c0 0 .3 2.5 2.5 2.5C19.3 19.5 19 22 19 22c0 0-.3-2.5-2.5-2.5C18.7 19.5 19 17 19 17z" />
+              </svg>
+              <span>Google AI Studio</span>
+            </li>
+            <li>
+              <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12a10 10 0 0 1 20 0" />
+                <path d="M12 12L16 8" />
+                <circle cx="12" cy="12" r="1" />
+              </svg>
+              <span>Performance Tuning</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+
+
+  <!-- PAGE 5 & 6: EXPERIENCE & EDUCATION SPREAD -->
+  <template id="experience-left-template">
+    <div class="portfolio-page experience-page">
+      <h2 class="section-title">WORK EXPERIENCE</h2>
+
+      <div class="experience-list">
+        <!-- Job 1 -->
+        <div class="experience-card">
+          <div class="card-header">
+            <span class="job-tag">Internship</span>
+            <span class="exp-date">Feb 2025 – Apr 2025</span>
+          </div>
+          <h3 class="job-title">Full Stack Developer Intern</h3>
+          <p class="job-company">Olavina Halli Rehabilitation &amp; Community Development Centre (NGO)</p>
+          <ul class="experience-points">
+            <li>Built and maintained the NGO website using React, PHP, and MySQL.</li>
+            <li>Developed user-friendly features for content management and outreach.</li>
+            <li>Collaborated with the team to enhance UI/UX and website performance.</li>
+          </ul>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="experience-card">
+          <div class="card-header">
+            <span class="job-tag">Internship</span>
+            <span class="exp-date">May 2025 – Jul 2025</span>
+          </div>
+          <h3 class="job-title">AI / ML Intern</h3>
+          <p class="job-company">CODSOFT</p>
+          <ul class="experience-points">
+            <li>Worked on machine learning models for real-world problem solving.</li>
+            <li>Performed data preprocessing, model training, and evaluation.</li>
+            <li>Integrated AI solutions and collaborated on end-to-end model deployment.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="experience-right-template">
+    <div class="portfolio-page experience-page">
+      <h2 class="section-title">EDUCATION</h2>
+
+      <div class="timeline-container education-container">
+        <div class="timeline-line"></div>
+
+        <!-- Edu 1 -->
+        <div class="timeline-node education-node">
+          <div class="node-marker"></div>
+          <div class="node-content education-card">
+            <div class="node-year edu-year">2025 – 2027</div>
+            <h3 class="node-title edu-title">Masters of Computer Applications</h3>
+            <div class="node-school edu-school"><strong>St Aloysius Institute of Management and Information Technology
+                (AIMIT), Mangaluru</strong>
+              - Karnataka.</div>
+            <p class="node-desc edu-desc">Major in AI and Machine Learning and AI and Machine Learning</p>
+          </div>
+        </div>
+
+        <!-- Edu 2 -->
+        <div class="timeline-node education-node">
+          <div class="node-marker"></div>
+          <div class="node-content education-card">
+            <div class="node-year edu-year">2022 – 2025</div>
+            <h3 class="node-title edu-title">Bachelor of Computer Applications</h3>
+            <div class="node-school edu-school"><strong>St Aloysius (Deemed to be University), Mangaluru</strong> -
+              Karnataka.</div>
+            <p class="node-desc edu-desc">Focused on full-stack development, system design, and scalable web application
+              architecture.</p>
+          </div>
+        </div>
+
+        <!-- Edu 3 -->
+        <div class="timeline-node education-node">
+          <div class="node-marker"></div>
+          <div class="node-content education-card">
+            <div class="node-year edu-year">2020 - 2022</div>
+            <h3 class="node-title edu-title">Pre-University College (PUC) - CSBA</h3>
+            <div class="node-school edu-school"><strong>St Aloysius Pre-University College, Mangaluru</strong>
+              - Karnataka.</div>
+            <p class="node-desc edu-desc">Major in Computer Science.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- PAGE 7 & 8: PROJECTS SPREAD -->
+  <template id="projects-left-template">
+    <div class="projects-left-content project-scroll-column" id="projectColLeft">
+      <div class="projects-scroll-wrapper">
+        <h2 class="section-title sticky-header">SELECTED PROJECTS</h2>
+
+        <!-- Project 1 -->
+        <div class="portfolio-project-card">
+          <div class="project-media-container">
+            <video class="project-media" src="./src/assets/video/Ollavinahalli.mp4" loop muted playsinline autoplay
+              preload="metadata"></video>
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">01</div>
+            <h3 class="project-title">Olavina Halli</h3>
+            <p class="project-description">
+              A full-stack community website developed for Olavina Halli to showcase its mission, history, activities,
+              residents, and social impact. The platform provides an engaging digital presence for the organization
+              while featuring galleries, events, and updates, along with an admin panel for managing website content and
+              uploading photos.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">React</span>
+              <span class="p-tag">PHP</span>
+              <span class="p-tag">Tailwind CSS</span>
+              <span class="p-tag">MySQL</span>
+            </div>
+            <div class="project-links">
+              <a href="https://olavinahalli.com" target="_blank" rel="noopener" class="project-visit-link">Live
+                Preview ↗</a>
+              <!-- <a href="https://github.com" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <!--<div class="portfolio-project-card">
+          <div class="project-media-container">
+            <video class="project-media" src="./src/assets/video/Portfolio.mp4" loop muted playsinline autoplay
+              preload="metadata"></video>
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">02</div>
+            <h3 class="project-title">Portfolio</h3>
+            <p class="project-description">
+              Next Level Portfolio is a modern web portfolio crafted using Next.js, featuring a sleek design and
+              interactive
+              elements to highlight professional skills and showcase various projects.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Next.js</span>
+              <span class="p-tag">Typescript</span>
+              <span class="p-tag">React.js</span>
+              <span class="p-tag">Tailwind CSS</span>
+              <span class="p-tag">Framer Motion</span>
+            </div>
+            <div class="project-links">
+              <a href="https://henston-dza.vercel.app" target="_blank" rel="noopener" class="project-visit-link">Live
+                Preview
+                </a>
+              <a href="https://github.com" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a> -->
+      </div>
+    </div>
+    </div>-->
+
+    <!-- Project 3 -->
+    <div class="portfolio-project-card">
+      <div class="project-media-container">
+        <video class="project-media" src="./src/assets/video/swa.mp4" loop muted playsinline autoplay
+          preload="metadata"></video>
+      </div>
+      <div class="project-card-content">
+        <div class="project-num-badge">03</div>
+        <h3 class="project-title">SwatchhCity</h3>
+        <p class="project-description">
+          SwatchhCity is a AI-powered web and mobile platform that empowers citizens to report waste problems and
+          incentivizes
+          sustainable practices. The system leverages AI to categorize waste, forecast trends, and provide real-time
+          insights to both citizens and city officials.
+        </p>
+        <div class="project-tags">
+          <span class="p-tag">Javascript</span>
+          <span class="p-tag">Gemini API</span>
+          <span class="p-tag">React.js</span>
+          <span class="p-tag">Tailwind CSS</span>
+          <span class="p-tag">Firebase</span>
+          <span class="p-tag">MongoDB</span>
+        </div>
+        <div class="project-links">
+          <a href="https://swatchhcity.vercel.app/" target="_blank" rel="noopener" class="project-visit-link">Live
+            Preview
+            ↗</a>
+          <!-- <a href="https://github.com" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="portfolio-project-card">
+      <div class="project-media-container">
+        <video class="project-media" src="./src/assets/video/trade.mp4" loop muted playsinline autoplay
+          preload="metadata"></video>
+      </div>
+      <div class="project-card-content">
+        <div class="project-num-badge">04</div>
+        <h3 class="project-title">Trade Legends</h3>
+        <p class="project-description">
+          A gamified virtual trading platform for students that simulates real-world market trading in a competitive
+          league-based environment.
+          The goal is to help students learn trading, risk management, and market behavior through hands-on
+          experience — without real money.
+        </p>
+        <div class="project-tags">
+          <span class="p-tag">React Native</span>
+          <span class="p-tag">React.js</span>
+          <span class="p-tag">FastAPI</span>
+          <span class="p-tag">WebSockets</span>
+          <span class="p-tag">PostgreSQL</span>
+        </div>
+        <div class="project-links">
+          <a href="https://nj-bath-collections.vercel.app/" target="_blank" rel="noopener"
+            class="project-visit-link">Live Preview
+            ↗</a>
+          <!-- <a href="https://github.com" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 5 -->
+    <!--<div class="portfolio-project-card">
+          <div class="project-media-container">
+            <video class="project-media" src="./project/video/Project-5-ComfortTrip..mp4" loop muted playsinline
+              autoplay preload="metadata"></video>
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">05</div>
+            <h3 class="project-title">Next Level Portfolio</h3>
+            <p class="project-description">
+              Next Level Portfolio is a modern web portfolio crafted using Next.js, featuring a sleek design and
+              interactive
+              elements to highlight professional skills and showcase various projects.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Next.js</span>
+              <span class="p-tag">Typescript</span>
+              <span class="p-tag">React.js</span>
+              <span class="p-tag">Tailwind CSS</span>
+              <span class="p-tag">Framer Motion</span>
+            </div>
+            <div class="project-links">
+              <a href="https://henston-dza.vercel.app/" target="_blank" rel="noopener" class="project-visit-link">Live
+                Preview
+                ↗</a>
+    </div>
+    </div>
+    </div>-->
+
+
+    <div class="scroll-helper-space"></div>
+    </div>
+    </div>
+  </template>
+
+  <template id="projects-right-template">
+    <div class="projects-right-content project-scroll-column" id="projectColRight">
+      <div class="projects-scroll-wrapper">
+        <h2 class="section-title sticky-header">CODE SHOWCASE</h2>
+
+        <!-- Project 6-->
+        <div class="portfolio-project-card">
+          <div class="project-media-container">
+            <img class="project-media" src="./src/assets/video/QA.png" alt="School Management ERP" loading="lazy" />
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">06</div>
+            <h3 class="project-title">Nexora-QA</h3>
+            <p class="project-description">
+              An AI-powered software testing platform that automatically analyzes web applications, generates relevant
+              test cases, executes functional and security tests using browser automation, and collects screenshots and
+              test evidence.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Fast API</span>
+              <span class="p-tag">Python</span>
+              <span class="p-tag">React</span>
+              <span class="p-tag">OpenAI API</span>
+              <span class="p-tag">Playwright</span>
+              <span class="p-tag">SQLite</span>
+            </div>
+            <div class="project-links">
+              <a href="#/University-Management-Next.App" target="_blank" rel="noopener"
+                class="project-visit-link">Source Code ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-project-card">
+          <div class="project-media-container">
+            <video class="project-media" src="./src/assets/video/Portfolio.mp4" loop muted playsinline autoplay
+              preload="metadata"></video>
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">02</div>
+            <h3 class="project-title">Portfolio</h3>
+            <p class="project-description">
+              Next Level Portfolio is a modern web portfolio crafted using Next.js, featuring a sleek design and
+              interactive
+              elements to highlight professional skills and showcase various projects.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Next.js</span>
+              <span class="p-tag">Typescript</span>
+              <span class="p-tag">React.js</span>
+              <span class="p-tag">Tailwind CSS</span>
+              <span class="p-tag">Framer Motion</span>
+            </div>
+            <div class="project-links">
+              <a href="https://henston-dza.vercel.app" target="_blank" rel="noopener" class="project-visit-link">Live
+                Preview
+                ↗</a>
+              <!-- <a href="https://github.com" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 7 -->
+        <div class="portfolio-project-card">
+          <div class="project-media-container">
+            <video class="project-media" src="./src/assets/video/cur.mp4" loop muted playsinline autoplay
+              preload="metadata"></video>
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">07</div>
+            <h3 class="project-title">Culinary-Delights</h3>
+            <p class="project-description">
+              A modern full-stack restaurant web application that combines an elegant user experience with secure
+              backend
+              functionality. The platform allows users to explore menus, create personalized culinary plans,
+              register/login securely, and make table reservations with booking history tracking.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Bootstrap 5</span>
+              <span class="p-tag">Vanilla JS</span>
+              <span class="p-tag">JWT</span>
+              <span class="p-tag">Express.js</span>
+              <span class="p-tag">Node.js</span>
+              <span class="p-tag">MongoDB</span>
+            </div>
+            <div class="project-links">
+              <a href="#/Real-Estate-Web" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 8 -->
+        <!--<div class="portfolio-project-card">
+          <div class="project-media-container">
+            <img class="project-media" src="./project/thumbnail/Project-9-Excel-Analytics-platform.webp"
+              alt="Excel Grid Analytics" loading="lazy" />
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">08</div>
+            <h3 class="project-title">Excel Grid Analytics</h3>
+            <p class="project-description">
+              Built a full-stack analytics platform that allows users to upload Excel files, analyze data, and generate
+              interactive 2D/3D charts. Integrated authentication, dashboards, and optional AI-powered insights.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Sheet.js</span>
+              <span class="p-tag">Chart.js</span>
+              <span class="p-tag">Next.js</span>
+            </div>
+            <div class="project-links">
+              <a href="#/SheetIQ---Excel-Analytics-Platform" target="_blank" rel="noopener"
+                class="project-visit-link">Source Code ↗</a>
+            </div>
+          </div>
+        </div>-->
+        <!-- Project 9 -->
+        <!--<div class="portfolio-project-card">
+          <div class="project-media-container">
+            <img class="project-media" src="./project/thumbnail/Project-10-ShopSculpt-ECommerce.webp"
+              alt="ScopSculpt.ai" loading="lazy" />
+          </div>
+          <div class="project-card-content">
+            <div class="project-num-badge">09</div>
+            <h3 class="project-title">ScopSculpt.ai</h3>
+            <p class="project-description">
+              An ai powered customized e-commerce platform which provides personalized recommendations and purchase
+              guidance & provides suggested products for users use cases.
+            </p>
+            <div class="project-tags">
+              <span class="p-tag">Next.js</span>
+              <span class="p-tag">Rest/Fast Api</span>
+              <span class="p-tag">Express.js</span>
+            </div>
+            <div class="project-links">
+              <a href="#/ShopSculpt.ai" target="_blank" rel="noopener" class="project-visit-link">Source Code ↗</a>
+            </div>
+          </div>
+        </div>-->
+
+        <div class="scroll-helper-space"></div>
+      </div>
+    </div>
+  </template>
+
+  <!-- PAGE 9 & 10: CONTACT SPREAD -->
+  <template id="contact-left-template">
+    <div class="contact-left-content">
+      <h2 class="section-title">CONNECT WITH ME</h2>
+
+      <form id="portfolioContactForm" class="contact-sketch-form">
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter your Name" required autocomplete="off"
+              pattern="^[a-zA-ZÀ-ÿ\s\-]+$" title="First name should only contain letters, spaces, or hyphens." />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter your Surname" required
+              autocomplete="off" pattern="^[a-zA-ZÀ-ÿ\s\-]+$"
+              title="Last name should only contain letters, spaces, or hyphens." />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your E-mail" required autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="contactNo">Contact Number</label>
+          <input type="tel" id="contactNo" name="contactNo" placeholder="Enter our Phone Number" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Write your Message Here..." rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-contact-btn">Send Message <svg stroke="currentColor" fill="currentColor"
+            stroke-width="0" viewBox="0 0 512 512" class="btn-icon"
+            style="width: 1.1em; height: 1.1em; margin-left: 0.5rem; vertical-align: middle; display: inline-block;"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M440 6.5L24 168c-16.5 6.9-22.6 27.3-11.4 41.6 7.7 9.8 20.2 13.8 32 10.2L160 184v224c0 30.7 34.6 47.9 54.8 24.5l68.8-79.6 117.8 84.1c11.1 7.9 26.6 4.7 33.7-7.2L508 42c6.2-10.4 2.4-24.1-8.5-29.8-11-5.7-24.3-2.1-31.5 6.3l-28 38zM192 336l-32 37.3V256l160-80L192 336zm224 80l-123-88 181-224-256 128L160 192 448 64l-32 352z">
+            </path>
+          </svg></button>
+      </form>
+    </div>
+  </template>
+
+  <template id="contact-right-template">
+    <div class="contact-right-content">
+      <h2 class="section-title">LEAVE A NOTE</h2>
+
+      <div class="recruiter-note-box squiggle-container">
+        <h3 class="note-box-title"><span class="note-box-icon" data-lucide="hand"></span> For Recruiters &amp; Clients
+        </h3>
+        <p class="note-box-text">
+          I'm currently open to <strong>SDE internships</strong>, <strong>SDE & Full Stack Development roles</strong>,
+          and <strong>freelance projects</strong>.
+        </p>
+        <p class="note-box-text">
+          Interested in collaborating, exploring my work, or discussing a project? Feel free to reach out. Let's build
+          something meaningful together.
+        </p>
+      </div>
+
+      <div class="social-links-footer">
+        <h3 class="social-footer-title">Connect Elsewhere</h3>
+        <div class="social-footer-buttons">
+          <a href="https://github.com/henston-dza" target="_blank" rel="noopener" class="social-link-badge git">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+              style="margin-right: 0.6rem; vertical-align: middle; display: inline-block;">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/henston-melroy-dsouza/" target="_blank" rel="noopener"
+            class="social-link-badge link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+              style="margin-right: 0.6rem; vertical-align: middle; display: inline-block;">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://x.com/henston3888" target="_blank" rel="noopener" class="social-link-badge twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+              style="margin-right: 0.6rem; vertical-align: middle; display: inline-block;">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>Twitter/X</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- SVG Filters for Squigglevision (Wiggly Sketch Effect) -->
+  <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+    <defs>
+      <filter id="squiggle-0">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" result="noise" seed="0" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="squiggle-1">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" result="noise" seed="1" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <filter id="squiggle-2">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" result="noise" seed="2" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+
+  <!-- Success Popup -->
+  <div id="successPopup" class="success-popup">
+    <h3>Thank you!</h3>
+    <p>Your message has been sent successfully. I will get back to you as soon as possible!</p>
+    <button class="success-close-btn" id="successCloseBtn">Close</button>
+  </div>
+
+  <!-- Import EmailJS Browser SDK (v4) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      if (window.emailjs) {
+        emailjs.init({
+          publicKey: "yFS2XxfkIXd2_o8so"
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>

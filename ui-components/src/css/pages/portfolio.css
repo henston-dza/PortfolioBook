@@ -1,0 +1,201 @@
+/*
+  portfolio.css — Overrides & custom styles for portfolio pages.
+  The main style.css (from the Vercel build) hides some elements with opacity:0
+  waiting for scroll-reveal. We override those here so they appear immediately.
+*/
+
+
+/* ── Bookmarks Layout Adjustment for Right Tabs ──────────────────────── */
+.bookmarks-container.right-side {
+  width: 48% !important;
+  left: 48.5% !important;
+  gap: 0.5rem !important;
+}
+
+.bookmarks-container.right-side .bookmark {
+  padding: 0.4rem 0.85rem 1.6rem !important;
+  font-size: 0.95rem !important;
+  white-space: nowrap !important;
+}
+
+/* ── Experience cards ─────────────────────────────────────────────── */
+.experience-card {
+  opacity: 1 !important;
+  transform: rotate(-0.5deg);
+}
+
+.exp-date {
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  color: var(--text-light-ink, #555);
+}
+
+/* ── Education Timeline & Custom Cards ───────────────────────────── */
+.timeline-line {
+  opacity: 0.6 !important;
+}
+
+.node-marker {
+  opacity: 1 !important;
+}
+
+.node-content {
+  opacity: 1 !important;
+}
+
+.node-institute {
+  font-size: 0.85rem;
+  color: var(--text-light-ink, #555);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.education-container {
+  position: relative;
+  padding-left: 2rem !important;
+  margin-top: 1rem;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: 8px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.education-container .timeline-line {
+  display: block !important;
+  opacity: 1 !important;
+  border-left: 2px dashed #4b5563 !important;
+  left: 9px !important;
+  top: 15px !important;
+  bottom: 15px !important;
+  width: 2px !important;
+}
+
+.education-node {
+  margin-bottom: 1.3rem !important;
+  position: relative;
+}
+
+.education-container .node-marker {
+  display: block !important;
+  opacity: 1 !important;
+  width: 16px !important;
+  height: 16px !important;
+  background-color: #ec4899 !important;
+  /* Pink fill */
+  border: 2px solid #000000 !important;
+  /* Black outline */
+  border-radius: 50% !important;
+  position: absolute !important;
+  left: -2rem !important;
+  top: 16px !important;
+  box-shadow: none !important;
+  z-index: 2;
+}
+
+.education-card {
+  opacity: 1 !important;
+  border: 1.5px solid #000000 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  padding: 1.1rem 1.25rem !important;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.education-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.edu-year {
+  font-family: var(--font-sketch) !important;
+  color: #ec4899 !important;
+  /* Pink handwritten text */
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.edu-title {
+  font-family: var(--font-sketch) !important;
+  color: #111827 !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin: 0 0 0.35rem 0 !important;
+  line-height: 1.25 !important;
+}
+
+.edu-school {
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-size: 0.9rem !important;
+  color: #1a1a1a !important;
+  margin: 0 0 0.6rem 0 !important;
+  font-weight: 600 !important;
+}
+
+.edu-school strong {
+  font-weight: 800 !important;
+  color: #000000 !important;
+  text-transform: uppercase;
+}
+
+.edu-desc {
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  color: #555555 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.45 !important;
+  margin: 0 !important;
+}
+
+/* ── Experience page layout ───────────────────────────────────────── */
+.experience-page {
+  padding: 1rem 0.5rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* ── Section title override (no zigzag SVG needed) ─────────────────── */
+.experience-page .section-title {
+  margin-bottom: 1.2rem;
+}
+
+/* ── Developer Role Typewriter Animation ──────────────────────────── */
+.dev-role-title {
+  font-family: var(--font-sketch) !important;
+  margin: 0 0 0.5rem 0 !important;
+  font-size: 1.8rem !important;
+  line-height: 1.25 !important;
+  min-height: 2.3em;
+  /* Stable container height during typing */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.role-typewriter-text {
+  display: inline;
+}
+
+.role-cursor {
+  display: inline-block;
+  color: #ec4899;
+  /* Vibrant pink accent cursor */
+  font-weight: 300;
+  margin-left: 2px;
+  animation: cursorBlink 0.8s infinite;
+}
+
+@keyframes cursorBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
